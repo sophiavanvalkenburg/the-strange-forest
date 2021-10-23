@@ -1,2 +1,2 @@
-# the-strange-forest
+# The Strange Forest
 An interactive picture book
