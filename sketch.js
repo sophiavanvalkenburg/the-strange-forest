@@ -1,5 +1,5 @@
 let frontRow, mid1Row, mid2Row, mid3Row, backRow
-let X_SIZE = 1000;
+let X_SIZE = 1024;
 let MIN_X = 150;
 let MAX_X = X_SIZE + MIN_X;
 
@@ -40,11 +40,11 @@ function setup() {
 }
 
 function draw() {
-  parallax(frontRow, -50, 50);
-  parallax(mid1Row, -25, 25);
-  parallax(mid2Row, -12, 12);
-  parallax(mid3Row, -6, 6);
-  parallax(backRow, -3, 3);
+  parallax(frontRow, -63, 64);
+  parallax(mid1Row, -31, 32);
+  parallax(mid2Row, -15, 16);
+  parallax(mid3Row, -7, 8);
+  parallax(backRow, -3, 4);
 }
 
 function parallax(elem, pmin, pmax) {
