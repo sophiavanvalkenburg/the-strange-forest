@@ -40,11 +40,11 @@ function setup() {
 }
 
 function draw() {
-  parallax(frontRow, -100, 100);
-  parallax(mid1Row, -80, 80);
-  parallax(mid2Row, -50, 50);
-  parallax(mid3Row, -30, 30);
-  parallax(backRow, -20, 20);
+  parallax(frontRow, -50, 50);
+  parallax(mid1Row, -25, 25);
+  parallax(mid2Row, -12, 12);
+  parallax(mid3Row, -6, 6);
+  parallax(backRow, -3, 3);
 }
 
 function parallax(elem, pmin, pmax) {
