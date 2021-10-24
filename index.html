@@ -10,15 +10,39 @@
       padding: 0;
       margin: 0;
     }
+    img {
+      width: 512px;
+      height: auto;
+    }
+    .parallax-container {
+      position: absolute;
+      margin-top: 10%;
+      margin-left: 33%;
+      transform-style: preserve-3d
+    }
+    .parallax {
+      position: absolute;
+    }
   </style>
-  <script src="p5/p5.min.js"></script>
-  <!-- <script src="../addons/p5.sound.js"></script> -->
-  <script src="sketch.js"></script>
-</head>
 
+</head>
+  
 <body>
-  <main>
-  </main>
+  <div class="parallax-container" data-tilt data-tilt-axis="x" data-tilt-max="5">
+    <img class="parallax-start" alt="bushes in the background" src="/img/01-nose-grove_0000s_0004_back.png">
+    <img class="parallax" alt="tiny noses farther away" src="/img/01-nose-grove_0000s_0003_mid-3.png" style="transform: translateX(-100%) translateZ(10px);">
+    <img class="parallax" alt="smaller noses farther down the path" src="/img/01-nose-grove_0000s_0002_mid-2.png" style="transform: translateX(-100%) translateZ(30px);">
+    <img class="parallax" alt="big noses at the beginning of the path" src="/img/01-nose-grove_0000s_0001_mid-1.png" style="transform: translateX(-100%) translateZ(80px);">
+    <img class="parallax" alt="grasses in the foreground" src="/img/01-nose-grove_0000s_0000_front.png" style="transform: translateX(-100%) translateZ(100px);">
+  </div>
+  
+  <script src="jquery.min.js"></script>
+  <script src="tilt.jquery.min.js"></script>
+  <!--
+    <script src="p5/p5.min.js"></script>
+    <script src="../addons/p5.sound.js"></script> 
+    <script src="sketch.js"></script>
+  -->
 </body>
 
 </html>
