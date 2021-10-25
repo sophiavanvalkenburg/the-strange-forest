@@ -1,54 +1,56 @@
-let frontRow, mid1Row, mid2Row, mid3Row, backRow
-let X_SIZE = 1024;
-let MIN_X = 150;
-let MAX_X = X_SIZE + MIN_X;
 
-let PARALLAX_START = MIN_X;
-let PARALLAX_END = MAX_X;
+const IMG_WIDTH = 750;
+const distanceFactor = 1.75;
+let Y_POS, X_POS, PARALLAX_START, PARALLAX_END;
+let parallaxParams = [distanceFactor];
+let layers = [];
+const layerFiles = [
+  '/img/01-nose-grove_0000s_0004_back.png',
+  '/img/01-nose-grove_0000s_0003_mid-3.png',
+  '/img/01-nose-grove_0000s_0002_mid-2.png',
+  '/img/01-nose-grove_0000s_0001_mid-1.png',
+  '/img/01-nose-grove_0000s_0000_front.png'
+];
 
 
+function preload() {
+  for (let i=0; i<5; i++) {
+    layers.push(loadImage(layerFiles[i]));
+  }
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(255);
-
-  backRow = createImg('/img/01-nose-grove_0000s_0004_back.png', 'bushes in the background', () => {
-    backRow.size(X_SIZE, AUTO);
-  });
-  backRow.position(MIN_X, 0);
-
-  mid3Row = createImg('/img/01-nose-grove_0000s_0003_mid-3.png', 'tiny noses farther away', () => {
-    mid3Row.size(X_SIZE, AUTO);
-  });
-  mid3Row.position(MIN_X, 0);
-  
-  mid2Row = createImg('/img/01-nose-grove_0000s_0002_mid-2.png', 'smaller noses farther down the path', () => {
-    mid2Row.size(X_SIZE, AUTO);
-  });
-  mid2Row.position(MIN_X, 0);
-
-  mid1Row = createImg('/img/01-nose-grove_0000s_0001_mid-1.png', 'big noses at the beginning of the path', () => {
-    mid1Row.size(X_SIZE, AUTO);
-  });
-  mid1Row.position(MIN_X, 0);
-
-  frontRow = createImg('/img/01-nose-grove_0000s_0000_front.png', 'grasses in the foreground', () => {
-    frontRow.size(X_SIZE, AUTO);
-  });
-  frontRow.position(MIN_X, 0);
-
+  imageMode(CENTER);
+  calculateParallaxParams();
 }
 
 function draw() {
-  parallax(frontRow, -63, 64);
-  parallax(mid1Row, -31, 32);
-  parallax(mid2Row, -15, 16);
-  parallax(mid3Row, -7, 8);
-  parallax(backRow, -3, 4);
+  setPositionParams();
+  background(255);
+  for (let i=0; i<5; i++){
+    drawImage(layers[i], -parallaxParams[i], parallaxParams[i]);
+  }
 }
 
-function parallax(elem, pmin, pmax) {
+function calculateParallaxParams() {
+  for (let i=1; i<5; i++) {
+    // layers increased parallax effect exponentially
+    // e.g. position delta increases by 2, 4, 8, 16, ...
+    parallaxParams.push(pow(distanceFactor, i+1));
+  }
+}
+
+function setPositionParams(){
+  Y_POS = windowHeight / 2; 
+  X_POS = windowWidth / 2;
+  PARALLAX_START = X_POS - IMG_WIDTH / 2;
+  PARALLAX_END = X_POS + IMG_WIDTH / 2;
+}
+
+function drawImage(img, pmin, pmax) {
   let mouseXPos = min(max(mouseX, PARALLAX_START), PARALLAX_END);
   let pos = lerp(pmin, pmax, mouseXPos / PARALLAX_END);
-  elem.position(MIN_X + pos);
+  let img_height = img.height * IMG_WIDTH / img.width;
+  image(img, X_POS + pos, Y_POS, IMG_WIDTH, img_height);
 }
